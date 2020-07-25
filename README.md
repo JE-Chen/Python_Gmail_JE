@@ -1,1 +1,1 @@
-# SMTP-GMAIL
+# Gmail

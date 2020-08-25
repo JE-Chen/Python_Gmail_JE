@@ -46,7 +46,7 @@ class Gmail_API():
                 creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    'credentials.json', SCOPES)
+                    r'../client_secret.json', SCOPES)
                 creds = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open('token.pickle', 'wb') as token:
@@ -75,7 +75,7 @@ class Gmail_API():
       except errors.HttpError as error:
         logging.error('An HTTP error occurred: %s', error)
 
-    def Create_Message(self,sender, to, subject, message_text):
+    def Create_Message(self,sender, to, subject, message_text,Use_Html=False):
       """Create a message for an email.
 
       Args:
@@ -87,7 +87,10 @@ class Gmail_API():
       Returns:
         An object containing a base64url encoded email object.
       """
-      message = MIMEText(message_text)
+      if Use_Html:
+          message = MIMEText(message_text,'html')
+      else:
+          message = MIMEText(message_text)
       message['to'] = to
       message['from'] = sender
       message['subject'] = subject
@@ -95,7 +98,7 @@ class Gmail_API():
       b = base64.urlsafe_b64encode(s.encode('utf-8'))
       return {'raw': b.decode('utf-8')}
 
-    def Create_Message_With_Attachment(self,sender, to, subject, message_text, file):
+    def Create_Message_With_Attachment(self,sender, to, subject, message_text, file,Use_Html=False):
         """Create a message for an email.
 
         Args:
@@ -112,8 +115,10 @@ class Gmail_API():
         message['to'] = to
         message['from'] = sender
         message['subject'] = subject
-
-        msg = MIMEText(message_text)
+        if Use_Html:
+            msg = MIMEText(message_text,'html')
+        else:
+            msg = MIMEText(message_text)
         message.attach(msg)
 
         content_type, encoding = mimetypes.guess_type(file)
@@ -144,7 +149,7 @@ class Gmail_API():
 
         return {'raw': base64.urlsafe_b64encode(message.as_string().encode()).decode()}
 
-    def Send_Mail_Basic(self,From="Mail_Address",To="Mail_Address",Subject="Test subject",Body="Test body"):
+    def Send_Mail_Basic(self,From="Mail_Address",To="Mail_Address",Subject="Test subject",Body="Test body",UseHTML=False):
 
         logging.basicConfig(
             format="[%(levelname)s] %(message)s",
@@ -153,14 +158,14 @@ class Gmail_API():
 
         try:
             service = self.Get_Service()
-            message = self.Create_Message(From,To, Subject, Body)
+            message = self.Create_Message(From,To, Subject, Body,Use_Html=UseHTML)
             self.Want_Send_Message(service, From, message)
 
         except Exception as e:
             logging.error(e)
             raise
 
-    def Send_Mail_Attach(self,From="Mail_Address",To="Mail_Address",Subject="Test subject",Body="Test body",Attach_File='File_Path'):
+    def Send_Mail_Attach(self,From="Mail_Address",To="Mail_Address",Subject="Test subject",Body="Test body",Attach_File='File_Path',UseHTML=False):
         logging.basicConfig(
             format="[%(levelname)s] %(message)s",
             level=logging.INFO
@@ -169,7 +174,7 @@ class Gmail_API():
         try:
             service = self.Get_Service()
             #param From,To,Subject,Body,Attach_File
-            message = self.Create_Message_With_Attachment(From,To,Subject,Body,Attach_File)
+            message = self.Create_Message_With_Attachment(From,To,Subject,Body,Attach_File,Use_Html=UseHTML)
             #Service Sender,Message
             self.Want_Send_Message(service, From, message)
 

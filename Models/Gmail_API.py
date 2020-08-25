@@ -145,6 +145,7 @@ class Gmail_API():
             fp.close()
         filename = os.path.basename(file)
         msg.add_header('Content-Disposition', 'attachment', filename=filename)
+        msg.add_header('Content-ID', '<%s>' % filename)
         message.attach(msg)
 
         return {'raw': base64.urlsafe_b64encode(message.as_string().encode()).decode()}

@@ -1,8 +1,8 @@
 import datetime
 
-from Modules.GmailApi import GmailApi
-from Modules.SmtpGmail import SmtpGmail
-from Token.GmailGetToken import GmailGetToken
+from JEGmail.Modules.GmailApi import GmailApi
+from JEGmail.Modules.SmtpGmail import SmtpGmail
+from JEGmail.Token.GmailGetToken import GmailGetToken
 
 
 class GmailCore:

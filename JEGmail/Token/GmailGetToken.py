@@ -32,7 +32,7 @@ class GmailGetToken:
                 cred.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    '../client_secret.json', SCOPES)
+                    '../../client_secret.json', SCOPES)
                 cred = flow.run_local_server(port=0)
             # Save the credentials for the next run
             with open('token.pickle', 'wb') as token:

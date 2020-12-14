@@ -23,9 +23,6 @@ jobs:
             command: pip install --user google-auth-oauthlib
             name: pip google-auth-oauthlib
         - run:
-            command: python Test/Gmail_Test.py
-            name: Test
-        - run:
             command: python Test/UnitTest.py
             name: UnitTest
 

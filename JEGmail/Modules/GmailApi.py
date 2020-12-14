@@ -29,13 +29,12 @@ class GmailApi:
                 cred = pickle.load(token)
         if not cred or not cred.valid:
             if cred and cred.expired and cred.refresh_token:
-                cred.refresh(Request())
+                #cred.refresh(Request())
+                pass
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
                     os.getcwd() + '/Test/client_secret.json', scopes)
                 cred = flow.run_local_server(port=0)
-                with open(os.getcwd() + '/Test/client_secret.json', 'w+') as f:
-                    f.write(cred._refresh_token)
             with open('token.pickle', 'wb') as token:
                 pickle.dump(cred, token)
         service = build('gmail', 'v1', credentials=cred)

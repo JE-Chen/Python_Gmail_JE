@@ -9,9 +9,6 @@ class TestGmail(unittest.TestCase):
     def setUp(self) -> None:
         self.Gmail = JEGmail.Core.GmailCore()
 
-    def tearDown(self) -> None:
-        pass
-
     def test_log(self):
         with open(os.getcwd() + '/Test/Templates/Email_Template1_Picture.html', 'r+') as File:
             content = (File.read())

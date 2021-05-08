@@ -1,13 +1,13 @@
 import os
 import unittest
 
-import JEGmail
+from JEGmail.Core import GmailCore
 
 
 class TestGmail(unittest.TestCase):
 
     def setUp(self) -> None:
-        self.Gmail = JEGmail.Core.GmailCore('/Test')
+        self.Gmail = GmailCore('/Test')
 
     def test_log(self):
         with open(os.getcwd() + '/Test/Templates/Email_Template1_Picture.html', 'r+') as File:

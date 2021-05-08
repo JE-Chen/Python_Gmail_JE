@@ -9,13 +9,13 @@ jobs:
       name: python/default
 
     steps:
-        - checkout
-        - run:
-            command: pip install --user -r requirements.txt
-            name: pip requirements
-        - run:
-            command: python Test/UnitTest.py
-            name: UnitTest
+      - checkout
+      - run:
+          command: pip install --user -r requirements.txt
+          name: pip requirements
+      - run:
+          command: python Test/UnitTest.py
+          name: UnitTest
 
 workflows:
   main:

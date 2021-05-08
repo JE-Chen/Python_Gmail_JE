@@ -14,9 +14,9 @@ jobs:
           command: pip install --user -r requirements.txt
           name: pip requirements
       # need authorize
-      # - run:
-      #    command: python Test/UnitTest.py
-      #    name: UnitTest
+      - run:
+      command: python Test/UnitTest.py
+      name: UnitTest
 
 workflows:
   main:

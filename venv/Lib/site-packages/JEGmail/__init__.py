@@ -1,1 +1,0 @@
-from JEGmail import Core
